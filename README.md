@@ -1,5 +1,9 @@
 # A Study of Intersight in Terraform
 
+## Purpose
+
+This code provides a simplified look at configuring Intersight via Terraform.  It works both as a set of coherent examples, and as a base for simple activies in a lab or learning environment.
+
 ## Introduction
 
 In the work of the artist, a [Study](https://en.m.wikipedia.org/wiki/Study_(art)) is an important step on the journey to create a new piece of art.  It acts as a vehicle to help the artist understand the subject.  The effort yields fresh insights that inform the ultimate creation.
