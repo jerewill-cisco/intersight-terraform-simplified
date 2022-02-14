@@ -15,4 +15,5 @@ variable "intersight-secretkey" {
 variable "imc_local_admin_password" {
   description = "This value is used in policy_local_user.tf to set the password for the IMC local user named admin."
   type        = string
+  sensitive   = true
 }

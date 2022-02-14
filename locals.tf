@@ -1,4 +1,5 @@
 locals {
+  # this value is the data structure to add a tag named Automation with a value of Terraform
   terraform = {
     additional_properties = ""
     key                   = "Automation"

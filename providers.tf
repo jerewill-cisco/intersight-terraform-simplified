@@ -10,6 +10,7 @@ terraform {
     }
   }
 }
+
 provider "intersight" {
   apikey    = var.intersight-keyid
   secretkey = var.intersight-secretkey
