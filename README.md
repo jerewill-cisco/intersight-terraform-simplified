@@ -71,7 +71,7 @@ In this file, we lookup the organization that already exists inside of your Inte
 
 The code that becomes a policy in Intersight is organized into a file for each policy type.  They are named based on how the policy name is presented in the Intersight website.  This doesn't always correspond perfectly to the resource names in the API, so sometimes our Terraform resources have different names. For example, in [policy_boot_order.tf](policy_boot_order.tf) we use a resource type of `intersight_boot_precision_policy`.
 
-\Some policies, such as [policy_kvm.tf](policy_kvm.tf), only have one Terraform resource inside of them.  Some policies, such as [policy_imc_access.tf](policy_imc_access.tf) provide multiple examples of different policy options.  All of those resources corresponds one-to-one with the policy in Intersight.  
+Some policies, such as [policy_kvm.tf](policy_kvm.tf), only have one Terraform resource inside of them.  Some policies, such as [policy_imc_access.tf](policy_imc_access.tf) provide multiple examples of different policy options.  All of those resources corresponds one-to-one with the policy in Intersight.  
 
 Some policies, such as [policy_local_user.tf](policy_local_user.tf) or [policy_port.tf](policy_port.tf), are actually constructed from multiple resources.
 
