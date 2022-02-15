@@ -48,7 +48,7 @@ resource "intersight_fabric_fc_uplink_role" "fc_uplink_ports" {
 
   port_id      = each.value
   slot_id      = 1
-  admin_speed  = "Auto"
+  admin_speed  = "32Gbps"
   fill_pattern = "Idle"
   vsan_id      = 1
 
