@@ -30,7 +30,7 @@ The stacks of policy once held in UCS Manager, locked in each UCS Domain behind 
 
 ## Learn by Example
 
-When approaching Intersight via Terraform, one is confronted with two simultaneously unfamiliar puzzles.  The first puzzle is Terraform itself, and there are many resources available to help acquire the basics there.  The second puzzle is Intersight.  Here again, there are many great resources.  If you have not yet been exposed to the [Intersight Handbook](https://cdn.intersight.com/components/an-hulk/1.0.9-960/docs/cloud/data/resources/Intersight-Handbook/en/Cisco_Intersight_Handbook.pdf), I have to recommend it immediately.
+When approaching Intersight via Terraform, one is confronted with two simultaneously unfamiliar puzzles.  The first puzzle is Terraform itself, and there are many resources available to help acquire the basics there.  The second puzzle is Intersight.  Here again, there are many great resources.  If you have not yet been exposed to the [Intersight Handbook](https://cdn.intersight.com/components/an-hulk/1.0.9-974/docs/cloud/data/resources/Intersight-Handbook/en/Cisco_Intersight_Handbook.pdf), I have to recommend it immediately.
 
 But there comes a point in the crawl, walk, run of learning when you want to see something that *already* works.  It helps to see the Terraform concepts that may have been taught to you using the AWS provider implemented using the Intersight provider.
 
@@ -42,20 +42,20 @@ These goals guided the development of this code.
 
 1. Simpler is better.  Complexity will be here soon enough.
 1. No modules.  Modules are great.  But it’s easier to explain this code without them.
-1. Few variables.  Variables are great.  And this repository uses them in places, but they are use sparingly to improve the ease of understanding.
+1. Few variables.  Variables are great.  And this repository uses them in places, but they are used sparingly to improve the ease of understanding.
 1. One trick at a time.  There are nice Terraform tricks that allow us to do more with less code.  And this repository uses them in places, but in ways that are easier to understand because they are used in isolation instead of in a complex grouping.
 
 ## Lots of files
 
-This repo organizes code into many files.  Although this may seem difficult at first, it actually makes it easier to use.  There are a few files that are common to many TF projects.
+This repo organizes code into many files.  Although this may seem difficult at first, it makes it easier to use.  There are a few files that are common to many TF projects.
 
 ### [locals.tf](locals.tf)
 
-This file is used to set some values that we use in a lot of places.  They can be thought of as "static variables" in some ways.  See [the language docs](https://www.terraform.io/language/values/locals) for more details.  This file has only a couple of values in it.  Typically you wouldn't need to change them if you're just getting started.
+This file is used to set some values that we use in a lot of places.  They can be thought of as "static variables" in some ways.  See [the language docs](https://www.terraform.io/language/values/locals) for more details.  This file has only a couple of values in it.  Typically, you wouldn't need to change them if you're just getting started.
 
-One value, which we use on all of the resources, is to build a tag called "Automation" that we set to "Terraform".  This tag is visible in Intersight to clearly mark the resources that we are creating with Terraform.  Ideally, you would only change those resources via Terraform and not via the UI.
+One value, which we use on all the resources, is to build a tag called "Automation" that we set to "Terraform".  This tag is visible in Intersight to clearly mark the resources that we are creating with Terraform.  Ideally, you would only change those resources via Terraform and not via the UI.
 
-The other value in locals selects the organization where we want to deploy our resources.  This isn't required by Intersight if your account only has the default organization.  But if multiple organizations do exist, we have to specify the target organization.  Just to be safe, we're specifying the default organization.  See also [organization.tf](organization.tf)
+The other value in locals selects the organization where we want to deploy our resources.  This isn't required by Intersight if your account only has the default organization.  But if multiple organizations do exist, we must specify the target organization.  Just to be safe, we're specifying the default organization.  See also [organization.tf](organization.tf)
 
 ### [providers.tf](providers.tf)
 
@@ -65,25 +65,29 @@ The `required_providers` block tells Terraform the minimum version of each provi
 
 ### [organization.tf](organization.tf)
 
-In this file, we lookup the organization that already exists inside of your Intersight account.  To do that, we use a [Data Source](https://www.terraform.io/language/data-sources).  For simplicity sake, we just use the `default` organization.
+In this file, we lookup the organization that already exists inside of your Intersight account.  To do that, we use a [Data Source](https://www.terraform.io/language/data-sources).  For simplicity, we use the `default` organization.
 
 ### Policy files
 
 The code that becomes a policy in Intersight is organized into a file for each policy type.  They are named based on how the policy name is presented in the Intersight website.  This doesn't always correspond perfectly to the resource names in the API, so sometimes our Terraform resources have different names. For example, in [policy_boot_order.tf](policy_boot_order.tf) we use a resource type of `intersight_boot_precision_policy`.
 
-Some policies, such as [policy_kvm.tf](policy_kvm.tf), only have one Terraform resource inside of them.  Some policies, such as [policy_imc_access.tf](policy_imc_access.tf) provide multiple examples of different policy options.  All of those resources corresponds one-to-one with the policy in Intersight.  
+Some policies, such as [policy_kvm.tf](policy_kvm.tf), only have one Terraform resource inside of them.  Some policies, such as [policy_imc_access.tf](policy_imc_access.tf) provide multiple examples of different policy options.  All of those resources correspond one-to-one with the policy in Intersight.  
 
 Some policies, such as [policy_local_user.tf](policy_local_user.tf) or [policy_port.tf](policy_port.tf), are actually constructed from multiple resources.
 
 ### Pool files
 
-The code that becomes a pool in Intersight is likewise organized into a file for each pool type in a way that is similar to policy files above.  Most have multiple examples for different sized pools.
+The code that becomes a pool in Intersight is likewise organized into a file for each pool type in a way that is like the policy files above.  Most have multiple examples for different sized pools.
 
 ### Profile and Template files
 
 Profiles aggregate the policy and pool objects into something that can be applied to equipment.  One example is provided for each.
 
 There is also one example Server Profile Template.  This template may be used from Intersight using the [Derive Profiles](https://intersight.com/help/saas/features/servers/operate#server_profile_templates) action.  While it is straightforward to create such templates from Terraform, it is not yet possible to use them from Terraform.
+
+#### Server Profiles by Tag
+
+In addition to the basic server profile example, a more complex example that combines an [intersight_search_search_item](https://registry.terraform.io/providers/CiscoDevNet/intersight/latest/docs/data-sources/search_search_item) data source and an [intersight_server_profile](https://registry.terraform.io/providers/CiscoDevNet/intersight/latest/docs/resources/server_profile) resource with a [for_each](https://www.terraform.io/language/meta-arguments/for_each) to provision multiple profiles is provided in [profile_ucs_server_by_tag.tf](profile_ucs_server_by_tag.tf).  Be aware that if you try to plan that terraform code and no servers are returned in the data source, it will cause the plan to (correctly) fail.
 
 ### Variables files
 
@@ -99,7 +103,7 @@ There are just three input variables that you need to specify to deploy this cod
 
 There are a couple of options for [assigning input variables](https://www.terraform.io/language/values/variables#assigning-values-to-root-module-variables), but using a .tfvars is the preferred way.
 
-That file might looks something like this...
+That file might look something like this...
 
 ```text
 intersight-keyid = "ABCDEFGHIZJKMNOPQRSTUVWXYZ1234567890000"
