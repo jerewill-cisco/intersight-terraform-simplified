@@ -39,7 +39,6 @@ resource "intersight_vnic_eth_adapter_policy" "esxi" {
 
   completion_queue_settings {
     nr_count  = 2
-    ring_size = 1
   }
 
   rx_queue_settings {

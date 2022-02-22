@@ -27,7 +27,6 @@ resource "intersight_vmedia_policy" "vmedia_http_iso" {
     authentication_protocol = "none"
     device_type             = "cdd"
     file_location           = var.httpiso.url
-    is_password_set         = (var.httpiso.password == "" ? false : true)
     mount_protocol          = lower(element(split(":", var.httpiso.url), 0))
     password                = var.httpiso.password
     username                = var.httpiso.username

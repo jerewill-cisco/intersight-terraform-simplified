@@ -30,7 +30,6 @@ resource "intersight_vnic_fc_adapter_policy" "default" {
   }
 
   rx_queue_settings {
-    nr_count  = 1
     ring_size = 64
   }
 
@@ -40,7 +39,6 @@ resource "intersight_vnic_fc_adapter_policy" "default" {
   }
 
   tx_queue_settings {
-    nr_count  = 1
     ring_size = 64
   }
 
