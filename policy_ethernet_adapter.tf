@@ -27,18 +27,18 @@ resource "intersight_vnic_eth_adapter_policy" "esxi" {
   }
 
   rss_hash_settings {
-    ipv4_hash         = true
-    ipv6_hash         = true
+    ipv4_hash         = false
+    ipv6_hash         = false
     ipv6_ext_hash     = false
-    tcp_ipv4_hash     = true
+    tcp_ipv4_hash     = false
     tcp_ipv6_ext_hash = false
-    tcp_ipv6_hash     = true
+    tcp_ipv6_hash     = false
     udp_ipv4_hash     = false
     udp_ipv6_hash     = false
   }
 
   completion_queue_settings {
-    nr_count  = 2
+    nr_count = 2
   }
 
   rx_queue_settings {
