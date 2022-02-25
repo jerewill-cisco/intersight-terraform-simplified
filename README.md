@@ -81,7 +81,7 @@ The code that becomes a pool in Intersight is likewise organized into a file for
 
 ### Profile and Template files
 
-Profiles aggregate the policy and pool objects into something that can be applied to equipment.  One example is provided for each.
+Profiles aggregate the policy and pool objects into something that can be applied to equipment.  At least one example is provided for each type, and a server profile example is provided for FI Attached and Standalone targets in [profile_ucs_server.tf](profile_ucs_server.tf).
 
 There is also one example Server Profile Template.  This template may be used from Intersight using the [Derive Profiles](https://intersight.com/help/saas/features/servers/operate#server_profile_templates) action.  While it is straightforward to create such templates from Terraform, it is not yet possible to use them from Terraform.
 
