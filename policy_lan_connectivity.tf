@@ -368,3 +368,184 @@ resource "intersight_vnic_eth_if" "vmnetworks_b" {
   }
 
 }
+
+resource "intersight_vnic_lan_connectivity_policy" "standalone" {
+  name = "standalone"
+  tags = [local.terraform]
+  organization {
+    moid = local.organization
+  }
+
+  #  placement_mode  = "auto"
+  target_platform = "Standalone"
+}
+
+resource "intersight_vnic_eth_if" "standalone_eth0" {
+  name = "eth0"
+  tags = [local.terraform]
+
+  order            = 0
+  mac_address_type = "POOL"
+
+  mac_pool {
+    moid = intersight_macpool_pool.cisco_af_1.moid
+  }
+
+  placement {
+    id  = "MLOM"
+    uplink   = "0"
+  }
+
+  cdn {
+    nr_source = "vnic"
+  }
+
+  eth_network_policy {
+    moid = intersight_vnic_eth_network_policy.access_mode.moid
+  }
+
+  eth_qos_policy {
+    moid = intersight_vnic_eth_qos_policy.default["gold"].moid
+  }
+
+  eth_adapter_policy {
+    moid = intersight_vnic_eth_adapter_policy.esxi.moid
+  }
+
+  lifecycle {
+    ignore_changes = [cdn]
+  }
+
+  lan_connectivity_policy {
+    moid = intersight_vnic_lan_connectivity_policy.standalone.moid
+  }
+
+}
+
+resource "intersight_vnic_eth_if" "standalone_eth1" {
+  name = "eth1"
+  tags = [local.terraform]
+
+  order            = 1
+  mac_address_type = "POOL"
+
+  mac_pool {
+    moid = intersight_macpool_pool.cisco_af_1.moid
+  }
+
+  placement {
+    id  = "MLOM"
+    uplink   = "1"
+  }
+
+  cdn {
+    nr_source = "vnic"
+  }
+
+  eth_network_policy {
+    moid = intersight_vnic_eth_network_policy.access_mode.moid
+  }
+
+  eth_qos_policy {
+    moid = intersight_vnic_eth_qos_policy.default["gold"].moid
+  }
+
+  eth_adapter_policy {
+    moid = intersight_vnic_eth_adapter_policy.esxi.moid
+  }
+
+  lifecycle {
+    ignore_changes = [cdn]
+  }
+
+  lan_connectivity_policy {
+    moid = intersight_vnic_lan_connectivity_policy.standalone.moid
+  }
+
+}
+
+
+resource "intersight_vnic_eth_if" "standalone_eth2" {
+  name = "eth2"
+  tags = [local.terraform]
+
+  order            = 2
+  mac_address_type = "POOL"
+
+  mac_pool {
+    moid = intersight_macpool_pool.cisco_af_1.moid
+  }
+
+  placement {
+    id  = "MLOM"
+    uplink   = "2"
+  }
+
+  cdn {
+    nr_source = "vnic"
+  }
+
+  eth_network_policy {
+    moid = intersight_vnic_eth_network_policy.access_mode.moid
+  }
+
+  eth_qos_policy {
+    moid = intersight_vnic_eth_qos_policy.default["gold"].moid
+  }
+
+  eth_adapter_policy {
+    moid = intersight_vnic_eth_adapter_policy.esxi.moid
+  }
+
+  lifecycle {
+    ignore_changes = [cdn]
+  }
+
+  lan_connectivity_policy {
+    moid = intersight_vnic_lan_connectivity_policy.standalone.moid
+  }
+
+}
+
+
+resource "intersight_vnic_eth_if" "standalone_eth3" {
+  name = "eth3"
+  tags = [local.terraform]
+
+  order            = 3
+  mac_address_type = "POOL"
+
+  mac_pool {
+    moid = intersight_macpool_pool.cisco_af_1.moid
+  }
+
+  placement {
+    id  = "MLOM"
+    uplink   = "3"
+  }
+
+  cdn {
+    nr_source = "vnic"
+  }
+
+  eth_network_policy {
+    moid = intersight_vnic_eth_network_policy.access_mode.moid
+  }
+
+  eth_qos_policy {
+    moid = intersight_vnic_eth_qos_policy.default["gold"].moid
+  }
+
+  eth_adapter_policy {
+    moid = intersight_vnic_eth_adapter_policy.esxi.moid
+  }
+
+  lifecycle {
+    ignore_changes = [cdn]
+  }
+
+  lan_connectivity_policy {
+    moid = intersight_vnic_lan_connectivity_policy.standalone.moid
+  }
+
+}

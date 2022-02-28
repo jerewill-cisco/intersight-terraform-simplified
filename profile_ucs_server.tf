@@ -112,7 +112,7 @@ resource "intersight_server_profile" "example-standalone" {
     moid = local.organization
   }
 
-  target_platform   = "Standalone"
+  target_platform = "Standalone"
 
   ### 
   ### Compute Configuration
@@ -127,10 +127,10 @@ resource "intersight_server_profile" "example-standalone" {
     object_type = intersight_boot_precision_policy.UEFI_m2_RAID.object_type
   }
 
-  policy_bucket { # Persistent Memory
-    moid        = intersight_memory_persistent_memory_policy.configured_from_os.moid
-    object_type = intersight_memory_persistent_memory_policy.configured_from_os.object_type
-  }
+  # policy_bucket { # Persistent Memory
+  #   moid        = intersight_memory_persistent_memory_policy.configured_from_os.moid
+  #   object_type = intersight_memory_persistent_memory_policy.configured_from_os.object_type
+  # }
 
   policy_bucket { # Virtual Media
     moid        = intersight_vmedia_policy.vmedia_http_iso.moid
@@ -165,35 +165,35 @@ resource "intersight_server_profile" "example-standalone" {
     object_type = intersight_iam_end_point_user_policy.default.object_type
   }
 
-  #   policy_bucket { # Network Connectivity
-  #     moid        = ""
-  #     object_type = ""
-  #   }
+  policy_bucket { # Network Connectivity
+    moid        = intersight_networkconfig_policy.default.moid
+    object_type = intersight_networkconfig_policy.default.object_type
+  }
 
-  #   policy_bucket { # NTP Policy
-  #     moid        = intersight_ntp_policy.us_ntp["us_eastern"].moid
-  #     object_type = intersight_ntp_policy.us_ntp["us_eastern"].object_type
-  #   }
+  policy_bucket { # NTP Policy
+    moid        = intersight_ntp_policy.us_ntp["us_eastern"].moid
+    object_type = intersight_ntp_policy.us_ntp["us_eastern"].object_type
+  }
 
   policy_bucket { #Serial Over LAN
     moid        = intersight_sol_policy.disabled.moid
     object_type = intersight_sol_policy.disabled.object_type
   }
 
-    policy_bucket { # SMTP
-      moid        = intersight_smtp_policy.disabled.moid
-      object_type = intersight_smtp_policy.disabled.object_type
-    }
+  policy_bucket { # SMTP
+    moid        = intersight_smtp_policy.disabled.moid
+    object_type = intersight_smtp_policy.disabled.object_type
+  }
 
   policy_bucket { # SNMP
     moid        = intersight_snmp_policy.disabled.moid
     object_type = intersight_snmp_policy.disabled.object_type
   }
 
-    policy_bucket { # SSH
-      moid        = intersight_ssh_policy.disabled.moid
-      object_type = intersight_ssh_policy.disabled.object_type
-    }
+  policy_bucket { # SSH
+    moid        = intersight_ssh_policy.disabled.moid
+    object_type = intersight_ssh_policy.disabled.object_type
+  }
 
   policy_bucket { # Syslog
     moid        = intersight_syslog_policy.local_only.moid
@@ -214,25 +214,25 @@ resource "intersight_server_profile" "example-standalone" {
   #   }
 
   policy_bucket { # Storage
-    moid        = intersight_storage_storage_policy.m2_RAID1.moid
-    object_type = intersight_storage_storage_policy.m2_RAID1.object_type
+    moid        = intersight_storage_storage_policy.local_raid.moid
+    object_type = intersight_storage_storage_policy.local_raid.object_type
   }
 
   ###
   ### Network Configuration
   ###
-    policy_bucket { # Adapter Configuration
-      moid        = intersight_adapter_config_policy.mlom_no_pc.moid
-      object_type = intersight_adapter_config_policy.mlom_no_pc.object_type
-    }
+  policy_bucket { # Adapter Configuration
+    moid        = intersight_adapter_config_policy.mlom_no_pc.moid
+    object_type = intersight_adapter_config_policy.mlom_no_pc.object_type
+  }
 
   policy_bucket { # LAN Connectivity
-    moid        = intersight_vnic_lan_connectivity_policy.esxi.moid
-    object_type = intersight_vnic_lan_connectivity_policy.esxi.object_type
+    moid        = intersight_vnic_lan_connectivity_policy.standalone.moid
+    object_type = intersight_vnic_lan_connectivity_policy.standalone.object_type
   }
 
-  policy_bucket { #SAN Connectivity
-    moid        = intersight_vnic_san_connectivity_policy.esxi.moid
-    object_type = intersight_vnic_san_connectivity_policy.esxi.object_type
-  }
+  # policy_bucket { # SAN Connectivity
+  #   moid        = ""
+  #   object_type = ""
+  # }
 }

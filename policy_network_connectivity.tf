@@ -22,6 +22,26 @@ resource "intersight_networkconfig_policy" "default" {
   enable_ipv6              = false
   enable_ipv6dns_from_dhcp = false
 
+}
+
+resource "intersight_networkconfig_policy" "default_duplicate" {
+  name = "default"
+  tags = [local.terraform]
+  organization {
+    moid = local.organization
+  }
+
+  enable_dynamic_dns = false
+
+  # ipv4
+  enable_ipv4dns_from_dhcp = false
+  preferred_ipv4dns_server = "10.10.10.1"
+  alternate_ipv4dns_server = "10.10.10.2"
+
+  # ipv6
+  enable_ipv6              = false
+  enable_ipv6dns_from_dhcp = false
+
   # This is a temporary workaround to the bug in intersight_fabric_switch_profile policy_bucket
   # we are attaching the profile to the policy here instead of attaching the policy to the profile in profile_ucs_domain.tf
   dynamic "profiles" {
