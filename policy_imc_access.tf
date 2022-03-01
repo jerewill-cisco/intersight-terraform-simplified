@@ -34,14 +34,4 @@ resource "intersight_access_policy" "outofband_imc" {
     moid = intersight_ippool_pool.ip_pools["ucs_outofband"].id
   }
 
-  # This shouldn't really be necessary since configure_inband is false,
-  # but if it's not configured then the Intersight API will return
-  # a value of 4 for inband_vlan during subsequent plan operations
-  # and TF will try to unset the value which will cause the apply fail.
-  # https://github.com/CiscoDevNet/terraform-provider-intersight/issues/169
-  inband_vlan = 4
-  lifecycle {
-    ignore_changes = [inband_vlan]
-  }
-
 }
