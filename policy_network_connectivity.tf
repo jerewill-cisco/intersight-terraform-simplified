@@ -25,7 +25,7 @@ resource "intersight_networkconfig_policy" "default" {
 }
 
 resource "intersight_networkconfig_policy" "default_duplicate" {
-  name = "default"
+  name = "default_duplicate"
   tags = [local.terraform]
   organization {
     moid = local.organization
