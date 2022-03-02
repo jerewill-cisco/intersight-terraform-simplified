@@ -88,3 +88,104 @@ resource "intersight_fabric_uplink_role" "ethernet_uplink_ports" {
   }
 
 }
+
+# This additional port policy enables port-channel interfaces
+
+resource "intersight_fabric_port_policy" "portchannel-6454" {
+  name = "portchannel-6454"
+  tags = [local.terraform]
+  organization {
+    moid = local.organization
+  }
+
+  device_model = "UCS-FI-6454"
+
+  # # This is a temporary workaround to the bug in intersight_fabric_switch_profile policy_bucket
+  # # we are attaching the profile to the policy here instead of attaching the policy to the profile in profile_ucs_domain.tf
+  # dynamic "profiles" {
+  #   for_each = intersight_fabric_switch_profile.example
+  #   content {
+  #     moid        = profiles.value.moid
+  #     object_type = profiles.value.object_type
+  #   }
+  # }
+
+}
+
+resource "intersight_fabric_port_mode" "fibrechannel_ports_pc" {
+  custom_mode   = "FibreChannel"
+  port_id_start = 1
+  port_id_end   = 4 # <= Valid choices here are 4, 8, 12, 16
+  slot_id       = 1
+
+  port_policy {
+    moid = intersight_fabric_port_policy.portchannel-6454.moid
+  }
+
+}
+
+resource "intersight_fabric_uplink_pc_role" "ethernet_pc_uplink" {
+  admin_speed = "Auto"
+  pc_id       = 1
+
+  eth_network_group_policy {
+    moid = intersight_fabric_eth_network_group_policy.all.moid
+  }
+
+  flow_control_policy {
+    moid = intersight_fabric_flow_control_policy.llfc.moid
+  }
+
+  link_aggregation_policy {
+    moid = intersight_fabric_link_aggregation_policy.default.moid
+  }
+
+  link_control_policy {
+    moid = intersight_fabric_link_control_policy.default.moid
+  }
+
+  port_policy {
+    moid = intersight_fabric_port_policy.portchannel-6454.moid
+  }
+
+  dynamic "ports" {
+    for_each = toset([for p in range(49, 50 + 1) : tostring(p)])
+    content {
+      port_id = ports.value
+      slot_id = 1
+    }
+  }
+
+}
+
+resource "intersight_fabric_fc_uplink_pc_role" "fc_pc_uplink" {
+  admin_speed  = "16Gbps"
+  fill_pattern = "Idle"
+  vsan_id      = 1
+  pc_id        = 2
+
+  dynamic "ports" {
+    for_each = toset([for p in range(1, 2 + 1) : tostring(p)])
+    content {
+      port_id = ports.value
+      slot_id = 1
+    }
+  }
+
+  port_policy {
+    moid = intersight_fabric_port_policy.portchannel-6454.moid
+  }
+
+}
+
+resource "intersight_fabric_server_role" "server_ports_pc" {
+  for_each = toset([for p in range(9, 48 + 1) : tostring(p)])
+
+  port_id = each.value
+  slot_id = 1
+
+  port_policy {
+    moid = intersight_fabric_port_policy.portchannel-6454.moid
+  }
+
+}
