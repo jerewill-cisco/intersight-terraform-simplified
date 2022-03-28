@@ -110,6 +110,8 @@ intersight-keyid = "ABCDEFGHIZJKMNOPQRSTUVWXYZ1234567890000"
 intersight-secretkey = "insert your secret key here"
 ```
 
+See [variables.tfvars](variables.tfvars) for an example.  It uses the [Heredoc](https://www.terraform.io/language/expressions/strings#heredoc-strings) syntax, so only replace the part between the ```eof``` markers with the secret key from Intersight.
+
 ### If you are using a Terraform Cloud workspace
 
 The most common way to specify these is by [creating workspace specific variables](https://www.terraform.io/cloud-docs/workspaces/variables/managing-variables#workspace-specific-variables).
@@ -124,8 +126,8 @@ If you are using the CLI, it's time to run ...
 
 ```text
 terraform init
-terraform plan
-terraform apply
+terraform plan -var-file="variables.tfvars"
+terraform apply -var-file="variables.tfvars"
 ```
 
 Or, if you are using Terraform Cloud, just click the "Actions" dropdown in your workspace and click "Start New Plan".
