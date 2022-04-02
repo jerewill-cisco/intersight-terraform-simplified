@@ -53,8 +53,8 @@ resource "intersight_server_profile" "example-esxi-from-tags" {
   ### Compute Configuration
   ###
   policy_bucket { # BIOS
-    moid        = intersight_bios_policy.performance.moid
-    object_type = intersight_bios_policy.performance.object_type
+    moid        = intersight_bios_policy.platform-defaults.moid
+    object_type = intersight_bios_policy.platform-defaults.object_type
   }
 
   policy_bucket { # Boot Order
