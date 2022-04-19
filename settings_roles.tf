@@ -1,10 +1,10 @@
 data "intersight_iam_role" "all" {
-    # Here we are not selecting any specific permission, but instead returning all of them
-    # so that we don't have to create a new data resource for every permission we want to assign
-    #
-    # we can then use a splat technique to find the index of the permission that we want and use it
-    # for example, the MOID of the Read-Only permission...
-    # moid = data.intersight_iam_role.all.results[index(data.intersight_iam_role.all.results.*.name, "Read-Only")].moid
+  # Here we are not selecting any specific permission, but instead returning all of them
+  # so that we don't have to create a new data resource for every permission we want to assign
+  #
+  # we can then use a splat technique to find the index of the permission that we want and use it
+  # for example, the MOID of the Read-Only permission...
+  # moid = data.intersight_iam_role.all.results[index(data.intersight_iam_role.all.results.*.name, "Read-Only")].moid
 }
 
 resource "intersight_iam_permission" "tier1tech" {
@@ -53,7 +53,7 @@ resource "intersight_iam_resource_roles" "tier1admin--org-example--devicetech" {
     moid = data.intersight_iam_role.all.results[index(data.intersight_iam_role.all.results.*.name, "Server Administrator")].moid
   }
   roles {
-          moid = data.intersight_iam_role.all.results[index(data.intersight_iam_role.all.results.*.name, "HyperFlex Cluster Administrator")].moid
+    moid = data.intersight_iam_role.all.results[index(data.intersight_iam_role.all.results.*.name, "HyperFlex Cluster Administrator")].moid
   }
 }
 
