@@ -18,8 +18,5 @@ resource "intersight_fabric_flow_control_policy" "llfc" {
     moid = local.organization
   }
 
-  priority_flow_control_mode = "off"
-  receive_direction          = "Enabled"
-  send_direction             = "Enabled"
-
+  priority_flow_control_mode = "auto"
 }
