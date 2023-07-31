@@ -1,16 +1,21 @@
-data "intersight_asset_device_registration" "all" {
-}
+###
+### The resources in this file are fine example, but they don't work in an empty Intersight account. 
+### As a result, they've been commented out so that it's easier to get started with this repo. 
+###
 
-# This TF resource creates a Resource Group for each PlatformType that is claimed in Intersight
-resource "intersight_resource_group" "resource_group_by_platform_type" {
-  for_each = toset(data.intersight_asset_device_registration.all.results.*.platform_type)
+# data "intersight_asset_device_registration" "all" {
+# }
 
-  name = each.key
+# # This TF resource creates a Resource Group for each PlatformType that is claimed in Intersight
+# resource "intersight_resource_group" "resource_group_by_platform_type" {
+#   for_each = toset(data.intersight_asset_device_registration.all.results.*.platform_type)
 
-  qualifier = "Allow-Selectors"
+#   name = each.key
 
-  selectors {
-    selector = format("/api/v1/asset/DeviceRegistrations?$filter=PlatformType eq '%s'", each.key)
-  }
+#   qualifier = "Allow-Selectors"
 
-}
+#   selectors {
+#     selector = format("/api/v1/asset/DeviceRegistrations?$filter=PlatformType eq '%s'", each.key)
+#   }
+
+# }
