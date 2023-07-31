@@ -1,6 +1,12 @@
 resource "intersight_fabric_fc_network_policy" "default" {
   name = "default"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -21,7 +27,13 @@ resource "intersight_fabric_fc_network_policy" "default" {
 
 resource "intersight_fabric_vsan" "vsan1" {
   name = "vsan1"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   default_zoning = "Disabled"
   vsan_scope     = "Uplink"

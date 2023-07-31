@@ -1,6 +1,12 @@
 resource "intersight_access_policy" "inband_imc" {
   name = "inband_imc"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -20,7 +26,13 @@ resource "intersight_access_policy" "inband_imc" {
 
 resource "intersight_access_policy" "outofband_imc" {
   name = "outofband_imc"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

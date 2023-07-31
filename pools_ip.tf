@@ -37,7 +37,13 @@ resource "intersight_ippool_pool" "ip_pools" {
   for_each = var.ip_pools_map
 
   name = each.key
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

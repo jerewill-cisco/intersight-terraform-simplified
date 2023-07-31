@@ -1,6 +1,12 @@
 resource "intersight_server_profile" "example-fi-attached" {
   name = "example-fi-attached"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -107,7 +113,13 @@ resource "intersight_server_profile" "example-fi-attached" {
 
 resource "intersight_server_profile" "example-standalone" {
   name = "example-standalone"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

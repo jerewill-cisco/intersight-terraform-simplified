@@ -1,6 +1,12 @@
 resource "intersight_sol_policy" "com0_9600baud" {
   name = "com0_9600baud"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -13,7 +19,13 @@ resource "intersight_sol_policy" "com0_9600baud" {
 
 resource "intersight_sol_policy" "disabled" {
   name = "disabled"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

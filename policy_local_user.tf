@@ -10,7 +10,13 @@
 # This is the base policy, which does not include any users
 resource "intersight_iam_end_point_user_policy" "default" {
   name = "default"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -32,7 +38,13 @@ resource "intersight_iam_end_point_user_policy" "default" {
 # This resource is a user that will be added to the policy.
 resource "intersight_iam_end_point_user" "admin" {
   name = "admin"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -48,7 +60,13 @@ data "intersight_iam_end_point_role" "imc_admin" {
 # This resource adds the user to the policy using the role we retrieved.
 # Notably, the password is set in this resource and NOT in the user resource above.
 resource "intersight_iam_end_point_user_role" "admin" {
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   enabled  = true
   password = var.imc_local_admin_password
@@ -72,7 +90,13 @@ resource "intersight_iam_end_point_user_role" "admin" {
 # This resource is a user that will be added to the policy.
 resource "intersight_iam_end_point_user" "example" {
   name = "example"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -94,7 +118,13 @@ resource "random_password" "example_password" {
 # This resource adds the user to the policy using the role we retrieved.
 # Notably, the password is set in this resource and NOT in the user resource above.
 resource "intersight_iam_end_point_user_role" "example" {
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   enabled  = true
   password = random_password.example_password.result

@@ -14,7 +14,13 @@ variable "httpiso" {
 
 resource "intersight_vmedia_policy" "vmedia_http_iso" {
   name = "vmedia_iso"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

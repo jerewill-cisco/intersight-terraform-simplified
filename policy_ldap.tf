@@ -1,6 +1,12 @@
 resource "intersight_iam_ldap_policy" "disabled" {
   name = "disabled"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -9,7 +15,13 @@ resource "intersight_iam_ldap_policy" "disabled" {
 
 resource "intersight_iam_ldap_policy" "example" {
   name = "example"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -50,7 +62,13 @@ resource "intersight_iam_ldap_policy" "example" {
 
 resource "intersight_iam_ldap_group" "ucs_admin" {
   name = "ucs_admin"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   domain = "example.com"
 
@@ -61,5 +79,5 @@ resource "intersight_iam_ldap_group" "ucs_admin" {
   ldap_policy {
     moid = intersight_iam_ldap_policy.example.moid
   }
-  
+
 }

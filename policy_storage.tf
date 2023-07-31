@@ -1,6 +1,12 @@
 resource "intersight_storage_storage_policy" "m2_RAID1" {
   name = "m2_RAID1"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -18,7 +24,13 @@ resource "intersight_storage_storage_policy" "m2_RAID1" {
 
 resource "intersight_storage_storage_policy" "local_raid" {
   name = "local_raid"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -35,7 +47,13 @@ resource "intersight_storage_storage_policy" "local_raid" {
 
 resource "intersight_storage_drive_group" "raid1_dg" {
   name = "raid1_dg"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   # type       = 0 # manual drive slot selection
   raid_level = "Raid1"
@@ -67,7 +85,13 @@ resource "intersight_storage_drive_group" "raid1_dg" {
 
 resource "intersight_storage_drive_group" "raid5_dg" {
   name = "raid5_dg"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   # type       = 0 # manual drive slot selection
   raid_level = "Raid5"

@@ -28,7 +28,13 @@
 
 #   # We use the moid (the key of the map) to name the profile
 #   name = format("esxi-%s", each.key)
-#   tags = [local.terraform]
+#   dynamic "tags" {
+#   for_each = local.tags
+#   content {
+#     key   = tags.key
+#     value = tags.value
+#   }
+# }
 #   organization {
 #     moid = local.organization
 #   }

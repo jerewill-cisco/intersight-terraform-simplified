@@ -1,6 +1,12 @@
 resource "intersight_vnic_san_connectivity_policy" "esxi" {
   name = "esxi"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -17,7 +23,13 @@ resource "intersight_vnic_san_connectivity_policy" "esxi" {
 
 resource "intersight_vnic_fc_if" "fab_a_1" {
   name = "1_fab_a_1"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   type              = "fc-initiator"
   order             = 0
@@ -53,7 +65,13 @@ resource "intersight_vnic_fc_if" "fab_a_1" {
 
 resource "intersight_vnic_fc_if" "fab_a_2" {
   name = "2_fab_a_2"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   type              = "fc-initiator"
   order             = 1
@@ -89,7 +107,13 @@ resource "intersight_vnic_fc_if" "fab_a_2" {
 
 resource "intersight_vnic_fc_if" "fab_b_1" {
   name = "3_fab_b_1"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   type              = "fc-initiator"
   order             = 2
@@ -125,7 +149,13 @@ resource "intersight_vnic_fc_if" "fab_b_1" {
 
 resource "intersight_vnic_fc_if" "fab_b_2" {
   name = "1_fab_b_2"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   type              = "fc-initiator"
   order             = 3

@@ -1,6 +1,12 @@
 resource "intersight_ntp_policy" "disabled" {
   name = "disabled"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -37,7 +43,13 @@ resource "intersight_ntp_policy" "us_ntp" {
   for_each = var.ntp_map
 
   name = each.key
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

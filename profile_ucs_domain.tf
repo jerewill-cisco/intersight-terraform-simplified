@@ -1,6 +1,12 @@
 resource "intersight_fabric_switch_cluster_profile" "example" {
   name = "example"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -12,7 +18,13 @@ resource "intersight_fabric_switch_profile" "example" {
   for_each = toset(["A", "B"])
 
   name = "example-${each.key}"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   type = "instance"
   # We are currently unable to use the policy bucket syntax on this resource.

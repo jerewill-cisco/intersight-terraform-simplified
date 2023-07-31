@@ -1,6 +1,12 @@
 resource "intersight_vnic_fc_adapter_policy" "default" {
   name = "default"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

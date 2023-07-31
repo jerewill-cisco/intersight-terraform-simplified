@@ -1,11 +1,17 @@
 resource "intersight_server_profile_template" "example-fi-attached" {
   name = "example-fi-attached"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
 
-  target_platform = "FIAttached"
+  target_platform   = "FIAttached"
   uuid_address_type = "POOL"
 
   uuid_pool {

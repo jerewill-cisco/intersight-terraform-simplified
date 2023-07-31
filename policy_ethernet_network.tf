@@ -1,6 +1,12 @@
 resource "intersight_vnic_eth_network_policy" "access_mode" {
   name = "access_mode"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

@@ -1,6 +1,12 @@
 resource "intersight_ssh_policy" "disabled" {
   name = "disabled"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -10,7 +16,13 @@ resource "intersight_ssh_policy" "disabled" {
 
 resource "intersight_ssh_policy" "enabled" {
   name = "enabled"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

@@ -6,7 +6,13 @@
 
 resource "intersight_networkconfig_policy" "default" {
   name = "default"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -26,7 +32,13 @@ resource "intersight_networkconfig_policy" "default" {
 
 resource "intersight_networkconfig_policy" "default_duplicate" {
   name = "default_duplicate"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

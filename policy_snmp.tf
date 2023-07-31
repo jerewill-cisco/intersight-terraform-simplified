@@ -1,6 +1,12 @@
 resource "intersight_snmp_policy" "disabled" {
   name = "disabled"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -15,7 +21,13 @@ resource "intersight_snmp_policy" "disabled_duplicate" {
   # due to another issue, we have to use separate policy for domain profiles also.
   # https://github.com/CiscoDevNet/terraform-provider-intersight/issues/170
   name = "disabled_duplicate"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -38,7 +50,13 @@ resource "intersight_snmp_policy" "disabled_duplicate" {
 
 resource "intersight_snmp_policy" "snmpv2c" {
   name = "snmpv2c"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -55,7 +73,13 @@ resource "intersight_snmp_policy" "snmpv2c" {
 
 resource "intersight_snmp_policy" "snmpv3" {
   name = "snmpv3"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

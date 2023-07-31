@@ -1,6 +1,12 @@
 resource "intersight_vnic_lan_connectivity_policy" "esxi" {
   name = "esxi"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -11,7 +17,13 @@ resource "intersight_vnic_lan_connectivity_policy" "esxi" {
 
 resource "intersight_vnic_eth_if" "mgmt_a" {
   name = "1_mgmt_a"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   order            = 0
   mac_address_type = "POOL"
@@ -56,7 +68,13 @@ resource "intersight_vnic_eth_if" "mgmt_a" {
 
 resource "intersight_vnic_eth_if" "mgmt_b" {
   name = "2_mgmt_b"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   order            = 1
   mac_address_type = "POOL"
@@ -101,7 +119,13 @@ resource "intersight_vnic_eth_if" "mgmt_b" {
 
 resource "intersight_vnic_eth_if" "vmotion_a" {
   name = "3_vmotion_a"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   order            = 2
   mac_address_type = "POOL"
@@ -146,7 +170,13 @@ resource "intersight_vnic_eth_if" "vmotion_a" {
 
 resource "intersight_vnic_eth_if" "vmotion_b" {
   name = "4_vmotion_b"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   order            = 3
   mac_address_type = "POOL"
@@ -191,7 +221,13 @@ resource "intersight_vnic_eth_if" "vmotion_b" {
 
 resource "intersight_vnic_eth_if" "iscsi_a" {
   name = "5_iscsi_a"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   order            = 4
   mac_address_type = "POOL"
@@ -236,7 +272,13 @@ resource "intersight_vnic_eth_if" "iscsi_a" {
 
 resource "intersight_vnic_eth_if" "iscsi_b" {
   name = "6_iscsi_b"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   order            = 5
   mac_address_type = "POOL"
@@ -281,7 +323,13 @@ resource "intersight_vnic_eth_if" "iscsi_b" {
 
 resource "intersight_vnic_eth_if" "vmnetworks_a" {
   name = "7_vmnetworks_a"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   order            = 6
   mac_address_type = "POOL"
@@ -326,7 +374,13 @@ resource "intersight_vnic_eth_if" "vmnetworks_a" {
 
 resource "intersight_vnic_eth_if" "vmnetworks_b" {
   name = "8_vmnetworks_b"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   order            = 7
   mac_address_type = "POOL"
@@ -371,7 +425,13 @@ resource "intersight_vnic_eth_if" "vmnetworks_b" {
 
 resource "intersight_vnic_lan_connectivity_policy" "standalone" {
   name = "standalone"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -382,7 +442,13 @@ resource "intersight_vnic_lan_connectivity_policy" "standalone" {
 
 resource "intersight_vnic_eth_if" "standalone_eth0" {
   name = "eth0"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   order            = 0
   mac_address_type = "POOL"
@@ -392,8 +458,8 @@ resource "intersight_vnic_eth_if" "standalone_eth0" {
   }
 
   placement {
-    id  = "MLOM"
-    uplink   = "0"
+    id     = "MLOM"
+    uplink = "0"
   }
 
   cdn {
@@ -424,7 +490,13 @@ resource "intersight_vnic_eth_if" "standalone_eth0" {
 
 resource "intersight_vnic_eth_if" "standalone_eth1" {
   name = "eth1"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   order            = 1
   mac_address_type = "POOL"
@@ -434,8 +506,8 @@ resource "intersight_vnic_eth_if" "standalone_eth1" {
   }
 
   placement {
-    id  = "MLOM"
-    uplink   = "1"
+    id     = "MLOM"
+    uplink = "1"
   }
 
   cdn {
@@ -467,7 +539,13 @@ resource "intersight_vnic_eth_if" "standalone_eth1" {
 
 resource "intersight_vnic_eth_if" "standalone_eth2" {
   name = "eth2"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   order            = 2
   mac_address_type = "POOL"
@@ -477,8 +555,8 @@ resource "intersight_vnic_eth_if" "standalone_eth2" {
   }
 
   placement {
-    id  = "MLOM"
-    uplink   = "2"
+    id     = "MLOM"
+    uplink = "2"
   }
 
   cdn {
@@ -510,7 +588,13 @@ resource "intersight_vnic_eth_if" "standalone_eth2" {
 
 resource "intersight_vnic_eth_if" "standalone_eth3" {
   name = "eth3"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   order            = 3
   mac_address_type = "POOL"
@@ -520,8 +604,8 @@ resource "intersight_vnic_eth_if" "standalone_eth3" {
   }
 
   placement {
-    id  = "MLOM"
-    uplink   = "3"
+    id     = "MLOM"
+    uplink = "3"
   }
 
   cdn {

@@ -4,7 +4,13 @@
 
 resource "intersight_fabric_eth_network_group_policy" "esxi_mgmt" {
   name = "esxi_mgmt"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -18,7 +24,13 @@ resource "intersight_fabric_eth_network_group_policy" "esxi_mgmt" {
 
 resource "intersight_fabric_eth_network_group_policy" "esxi_vmotion" {
   name = "esxi_vmotion"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -32,7 +44,13 @@ resource "intersight_fabric_eth_network_group_policy" "esxi_vmotion" {
 
 resource "intersight_fabric_eth_network_group_policy" "esxi_iscsi_a" {
   name = "esxi_iscsi_a"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -45,7 +63,13 @@ resource "intersight_fabric_eth_network_group_policy" "esxi_iscsi_a" {
 }
 resource "intersight_fabric_eth_network_group_policy" "esxi_iscsi_b" {
   name = "esxi_iscsi_b"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -59,7 +83,13 @@ resource "intersight_fabric_eth_network_group_policy" "esxi_iscsi_b" {
 
 resource "intersight_fabric_eth_network_group_policy" "esxi_vmnetworks" {
   name = "esxi_vmnetworks"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -77,13 +107,19 @@ resource "intersight_fabric_eth_network_group_policy" "esxi_vmnetworks" {
 
 resource "intersight_fabric_eth_network_group_policy" "all" {
   name = "all"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
 
   vlan_settings {
-    native_vlan = 1
+    native_vlan   = 1
     allowed_vlans = format("%s,%s", join(",", [for e in var.network_map_vmnetwork : e.vlan]), join(",", [for e in var.network_map_infra : e.vlan]))
   }
 

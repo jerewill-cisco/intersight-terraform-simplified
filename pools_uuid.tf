@@ -19,7 +19,13 @@ resource "random_id" "uuid_suffix_seed" {
 ## This isn't a perfect UUID Generator, but they are really reasonable looking Version 4, Variant 1 compliant UUIDs.
 resource "intersight_uuidpool_pool" "default" {
   name = "default"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

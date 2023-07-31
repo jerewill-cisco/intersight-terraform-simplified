@@ -1,6 +1,12 @@
 resource "intersight_chassis_profile" "example" {
   name = "example"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

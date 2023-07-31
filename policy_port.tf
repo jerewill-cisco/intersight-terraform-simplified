@@ -5,7 +5,13 @@
 # Each of the resources below are attached to this policy using a port_policy block.
 resource "intersight_fabric_port_policy" "default-6454" {
   name = "default-6454"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -93,7 +99,13 @@ resource "intersight_fabric_uplink_role" "ethernet_uplink_ports" {
 
 resource "intersight_fabric_port_policy" "portchannel-6454" {
   name = "portchannel-6454"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

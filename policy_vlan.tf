@@ -1,7 +1,13 @@
 # This resource holds the configured VLANs for the Fabric Interconnect.
 resource "intersight_fabric_eth_network_policy" "default" {
   name = "default"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -25,7 +31,13 @@ resource "intersight_fabric_vlan" "vlans_infra" {
   for_each = var.network_map_infra
 
   name = each.key
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
 
   auto_allow_on_uplinks = true
@@ -46,7 +58,13 @@ resource "intersight_fabric_vlan" "vlans_vmnetwork" {
   for_each = var.network_map_vmnetwork
 
   name = each.key
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
 
   auto_allow_on_uplinks = true
   is_native             = false

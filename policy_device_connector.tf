@@ -1,6 +1,12 @@
 resource "intersight_deviceconnector_policy" "local_lockout" {
   name = "local_lockout"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -10,7 +16,13 @@ resource "intersight_deviceconnector_policy" "local_lockout" {
 
 resource "intersight_deviceconnector_policy" "local_config_allowed" {
   name = "local_allowed"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

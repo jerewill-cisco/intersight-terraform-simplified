@@ -1,6 +1,12 @@
 resource "intersight_fabric_flow_control_policy" "pfc" {
   name = "pfc"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -13,7 +19,13 @@ resource "intersight_fabric_flow_control_policy" "pfc" {
 
 resource "intersight_fabric_flow_control_policy" "llfc" {
   name = "llfc"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

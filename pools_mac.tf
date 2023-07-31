@@ -7,7 +7,13 @@
 # should be globally unique in your infrastructure.
 resource "intersight_macpool_pool" "cisco_af_1" {
   name = "cisco_af_1"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -28,11 +34,17 @@ resource "intersight_macpool_pool" "cisco_af_1" {
 # policy with 1000 addresses in each block.
 resource "intersight_macpool_pool" "cisco_0F" {
   name = "cisco_0f"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
-  
+
   dynamic "mac_blocks" {
     for_each = formatlist("%X", range(0, 16))
     content {

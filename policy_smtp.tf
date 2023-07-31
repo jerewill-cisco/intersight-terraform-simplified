@@ -1,6 +1,12 @@
 resource "intersight_smtp_policy" "disabled" {
   name = "disabled"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -10,7 +16,13 @@ resource "intersight_smtp_policy" "disabled" {
 
 resource "intersight_smtp_policy" "example" {
   name = "example"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

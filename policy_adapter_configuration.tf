@@ -1,6 +1,12 @@
 resource "intersight_adapter_config_policy" "mlom_no_pc" {
   name = "mlom_no_pc"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -27,9 +33,9 @@ resource "intersight_adapter_config_policy" "mlom_no_pc" {
     dynamic "dce_interface_settings" {
       for_each = range(4)
       content {
-        object_type = "adapter.DceInterfaceSettings"
+        object_type  = "adapter.DceInterfaceSettings"
         interface_id = dce_interface_settings.value
-        fec_mode = "Off"
+        fec_mode     = "Off"
       }
     }
   }

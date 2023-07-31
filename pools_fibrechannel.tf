@@ -7,7 +7,13 @@
 
 resource "intersight_fcpool_pool" "cisco_af_2" {
   name = "cisco_af_2"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -27,7 +33,13 @@ resource "intersight_fcpool_pool" "cisco_af_2" {
 
 resource "intersight_fcpool_pool" "cisco_af_3" {
   name = "cisco_af_3"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }

@@ -12,7 +12,13 @@
 
 resource "intersight_syslog_policy" "remote" {
   name = "remote"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -41,7 +47,13 @@ resource "intersight_syslog_policy" "remote" {
 
 resource "intersight_syslog_policy" "local_only" {
   name = "local_only"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
@@ -56,7 +68,13 @@ resource "intersight_syslog_policy" "local_only_duplicate" {
   # due to another issue, we have to use separate policy for domain profiles also.
   # https://github.com/CiscoDevNet/terraform-provider-intersight/issues/170
   name = "local_only_duplicate"
-  tags = [local.terraform]
+  dynamic "tags" {
+    for_each = local.tags
+    content {
+      key   = tags.key
+      value = tags.value
+    }
+  }
   organization {
     moid = local.organization
   }
