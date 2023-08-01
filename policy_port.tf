@@ -62,6 +62,8 @@ resource "intersight_fabric_fc_uplink_role" "fc_uplink_ports" {
     moid = intersight_fabric_port_policy.default-6454.moid
   }
 
+  depends_on = [intersight_fabric_port_mode.fibrechannel_ports]
+
 }
 
 # Here we creating role objects for the remaining 25G interfaces.  We use the port_id_end +1 to get the first interface
@@ -187,6 +189,8 @@ resource "intersight_fabric_fc_uplink_pc_role" "fc_pc_uplink" {
   port_policy {
     moid = intersight_fabric_port_policy.portchannel-6454.moid
   }
+
+  depends_on = [intersight_fabric_port_mode.fibrechannel_ports_pc]
 
 }
 
