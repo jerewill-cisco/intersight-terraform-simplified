@@ -41,6 +41,11 @@ resource "intersight_server_profile" "example-fi-attached" {
     object_type = intersight_vmedia_policy.vmedia_http_iso.object_type
   }
 
+  policy_bucket { # Firmware
+    moid        = intersight_firmware_policy.latest.moid
+    object_type = intersight_firmware_policy.latest.object_type
+  }
+
   ###
   ### Management Configuration
   ###
