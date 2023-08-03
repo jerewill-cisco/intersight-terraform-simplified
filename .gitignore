@@ -31,3 +31,4 @@ override.tf.json
 *.txt
 
 settings.json
+.DS_Store
