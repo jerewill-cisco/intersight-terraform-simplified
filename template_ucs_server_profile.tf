@@ -42,8 +42,8 @@ resource "intersight_server_profile_template" "example-fi-attached" {
   }
 
   policy_bucket { # Firmware
-    moid        = intersight_firmware_policy.latest.moid
-    object_type = intersight_firmware_policy.latest.object_type
+    moid        = intersight_firmware_policy.August2023.moid
+    object_type = intersight_firmware_policy.August2023.object_type
   }
 
   ###

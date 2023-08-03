@@ -1,5 +1,6 @@
-resource "intersight_firmware_policy" "latest" {
-  name = "latest"
+
+resource "intersight_firmware_policy" "August2023" {
+  name = "August2023"
   dynamic "tags" {
     for_each = local.tags
     content {
