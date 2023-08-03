@@ -11,6 +11,8 @@ resource "intersight_firmware_policy" "latest" {
     moid = local.organization
   }
 
+  target_platform = "FIAttached"
+
   model_bundle_combo {
     model_family   = "UCSX-210C-M6"
     bundle_version = "5.1(0.230075)"
