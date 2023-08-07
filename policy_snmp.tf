@@ -35,17 +35,6 @@ resource "intersight_snmp_policy" "disabled_duplicate" {
   enabled    = false
   v2_enabled = false
   v3_enabled = false
-
-  # This is a temporary workaround to the bug in intersight_fabric_switch_profile policy_bucket
-  # we are attaching the profile to the policy here instead of attaching the policy to the profile in profile_ucs_domain.tf
-  dynamic "profiles" {
-    for_each = intersight_fabric_switch_profile.example
-    content {
-      moid        = profiles.value.moid
-      object_type = profiles.value.object_type
-    }
-  }
-
 }
 
 resource "intersight_snmp_policy" "snmpv2c" {
